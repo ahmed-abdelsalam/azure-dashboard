@@ -39,7 +39,9 @@ namespace WindowsFormsApp1
                 messageQueue.FetchAttributes();
                 while (messageQueue.ApproximateMessageCount > 0)
                 {
+                    //MessageBox.Show(messageQueue.ApproximateMessageCount.ToString(), "yes");
                     CloudQueueMessage retrievedMessage = messageQueue.GetMessage();
+                    //handle each message
                     if(retrievedMessage.AsString != null)
                     {
                         string[] words = retrievedMessage.AsString.Split(',');
@@ -61,6 +63,7 @@ namespace WindowsFormsApp1
                         }
                         messageQueue.DeleteMessage(retrievedMessage);
                     }
+                    messageQueue.FetchAttributes();
                 }
             }, null, startTimeSpan, periodTimeSpan);
 
